@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算器</title>
+  <style type="text/css">
+  table, td, th
+    {
+    border:1px solid black;
+font-size: 120%;
+    }
+  table
+  {
+    table-layout: fixed;
+width: 350px;
+  background-color: rgb(123, 125, 121);
+  }
+tr
+{
+  height: 10px;
+}
+    td
+      {
+      padding:25px;
+      text-align:right;
+      background-color:white;
+      }
+      td#xianshi
+      {
+      background-color: rgb(123, 125, 121);
+      border:none;
+      color: white;
+    overflow: hidden;
+        }
+td.item4
+{
+    background-color:rgba(237, 131, 21, 1);
+}
+  </style>
+</head>
+<body>
+  <table border="1">
+<tr>  <td id="xianshi" colspan="4">0</td>
+</tr>
+    <tr>
+      <td class="item1" id="ac">AC</td>
+      <td class="item2" id="tui">←</td>
+      <td class="item3" id="yu">%</td>
+      <td class="item4" id="chu">÷</td>
+    </tr>
+    <tr>
+      <td class="item1" id="seven">7</td>
+      <td class="item2" id="eight">8</td>
+      <td class="item3" id="nine">9</td>
+      <td class="item4" id="chen">x</td>
+    </tr>
+    <tr>
+      <td class="item1" id="four">4</td>
+      <td class="item2" id="five">5</td>
+      <td class="item3" id="six">6</td>
+      <td class="item4" id="jian">-</td>
+    </tr>
+    <tr>
+      <td class="item1" id="one">1</td>
+      <td class="item2" id="two">2</td>
+      <td class="item3" id="three">3</td>
+      <td class="item4" id="jia">+</td>
+    </tr>
+    <tr>
+      <td class="item1" colspan="2" id="zero">0</td>
+
+      <td class="item3" id="point">.</td>
+      <td class="item4" id="dengyu">=</td>
+    </tr>
+  </table>
+  <script type="text/javascript">
+  "use strict";
+
+  var out = 0;
+
+  var one = document.getElementById("one");
+  var two = document.getElementById("two");
+  var three = document.getElementById("three");
+  var jia = document.getElementById("jia");
+  var four = document.getElementById("four");
+  var five = document.getElementById("five");
+  var six = document.getElementById("six");
+  var jian = document.getElementById("jian");
+  var seven = document.getElementById("seven");
+  var eight = document.getElementById("eight");
+  var nine = document.getElementById("nine");
+  var zero = document.getElementById("zero");
+  var point = document.getElementById("point");
+  var chu = document.getElementById("chu");
+  var chen = document.getElementById("chen");
+  var yu = document.getElementById("yu");
+  var tui = document.getElementById("tui");
+  var ac = document.getElementById("ac");
+
+  var xianshi = document.getElementById("xianshi");
+
+  function np() {
+    var x = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+
+    return function () {
+      if (typeof out === "number"||out==="0") {
+        out = "";
+      };
+      out += x;
+      xianshi.textContent = out;
+    };
+  }
+  function fp() {
+    var x = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+
+    return function () {
+      if (typeof out === "number") {
+        out = out.toString();
+        console.log(typeof out);
+      };
+      if (out.match(/^.*\d$/)) {
+        out += x;
+        xianshi.textContent = out;
+      }
+    };
+  }
+  one.onclick = np(1);
+  four.onclick = np(4);
+  two.onclick = np(2);
+  three.onclick = np(3);
+  six.onclick = np(6);
+  five.onclick = np(5);
+  seven.onclick = np(7);
+  eight.onclick = np(8);
+  nine.onclick = np(9);
+  zero.onclick = function () {
+console.log(typeof out);
+if (out==="0"||out===0) {
+out=0;
+  return;
+};
+
+      if (typeof out === "number") {
+        out = "";
+      };
+      out += "0";
+      xianshi.textContent = out;
+    };
+  point.onclick = function() {
+
+if (typeof out === "number") {
+  out = out.toString();
+  console.log(typeof out);
+};
+if (out.match(/^.*(\.\d*)$/)) {
+  return;
+};
+if (out.match(/^.*\d$/)) {
+  out += ".";
+  xianshi.textContent = out;
+}
+};
+  jian.onclick = fp("-");
+  chen.onclick = fp("*");
+  chu.onclick = fp("/");
+
+  yu.onclick = fp('%');
+
+  jia.onclick = fp("+");
+  ac.onclick = function () {
+    out = 0;
+    xianshi.textContent = 0;
+  };
+  tui.onclick = function () {
+if (out===0) {
+  return;
+};
+    if (out.length === 1) {
+      out = 0;
+      xianshi.textContent = 0;
+      return;
+    };
+    if (typeof out === "number") {
+      out = out.toString();
+    };
+    out = out.slice(0, -1);
+    xianshi.textContent = out;
+  };
+  dengyu.onclick = function () {
+    out = eval(out);
+    xianshi.textContent = out;
+  };
+  </script>
+</body>
+</html>
